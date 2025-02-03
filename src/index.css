@@ -23,6 +23,7 @@ p {
     margin: 0;
 }
 
+input,
 ul,
 ol {
     margin: 0;
@@ -51,11 +52,12 @@ body {
     margin: 0;
     color: black;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     /* justify-content: center; */
     /* align-items: center; */
     /* place-items: center; */
-    min-width: 320px;
+    /* min-width: 320px; */
+    width: 100dvw;
     min-height: 100vh;
     box-sizing: border-box;
 }

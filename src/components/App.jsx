@@ -1,9 +1,9 @@
 import SearchBar from "./SearchBar/SearchBar";
 
 export default function App() {
-    return (
-        <main>
-            <SearchBar />
-        </main>
-    );
+    const request = (query) => {
+        console.log(query);
+    };
+
+    return <SearchBar request={request} />;
 }
