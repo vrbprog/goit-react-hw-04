@@ -14,17 +14,24 @@ export default function App() {
     const [articles, setArticles] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
+    const [isNotLastPage, setIsNotLastPage] = useState(false);
 
     useEffect(() => {
+
         const getArticlesData = async () => {
         try {
             
-            if (query === '') return;
+             if (query === '') return;
             
             setIsError(false);
             setIsLoading(true);
             const { total_pages, results } = await fetchImages(query, page);
-            console.log(total_pages)
+            if(page === total_pages) {
+                setIsNotLastPage(false);
+            }
+            else {
+                setIsNotLastPage(true);
+            }
 
             if (total_pages === 0) {
                 toast.error('No results were found for your query!');
@@ -53,12 +60,27 @@ export default function App() {
         setPage(1);
     };
 
+    const isLoadImages = () => {
+        return articles.length > 0;
+    }
+
+    const handleLoadMore = () => {
+        setPage((page) => page + 1);
+    };
+
     return (
         <>
             <SearchBar request={request} />
-            {isError ? <ErrorMessage /> : <ImageGallery images={articles} />}
-            {isLoading && <Loader />}
-            <LoadMoreBtn />
+            {isError ? <ErrorMessage /> :
+                <>
+                    <ImageGallery images={articles} />
+                    {isLoading ? <Loader /> :
+                        isNotLastPage &&
+                        isLoadImages() &&
+                        <LoadMoreBtn onLoadMore={handleLoadMore} />
+                    }
+                </>
+            }
         </>
     );
 }
