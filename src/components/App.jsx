@@ -21,7 +21,7 @@ export default function App() {
         const getArticlesData = async () => {
         try {
             
-             if (query === '') return;
+            if (query === '') return;
             
             setIsError(false);
             setIsLoading(true);
