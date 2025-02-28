@@ -6,15 +6,19 @@ import { toast } from "react-hot-toast";
 import ErrorMessage from "./ErrorMessage/ErrorMessage";
 import Loader from "./Loader/Loader";
 import LoadMoreBtn from "./LoadMoreBtn/LoadMoreBtn";
+import ImageModal from "./ImageModal/ImageModal";
 
 export default function App() {
-
+    
     const [query, setQuery] = useState('');
     const [page, setPage] = useState(1);
     const [articles, setArticles] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
     const [isNotLastPage, setIsNotLastPage] = useState(false);
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [modalImage, setModalImage] = useState('');
+    const [modalDescription, setModalDescription] = useState('');
 
     useEffect(() => {
 
@@ -68,12 +72,18 @@ export default function App() {
         setPage((page) => page + 1);
     };
 
+    const handleModal = (image, description) => {
+        setModalImage(image);
+        setModalDescription(description);
+        setModalIsOpen(true);
+    }
+
     return (
         <>
             <SearchBar request={request} />
             {isError ? <ErrorMessage /> :
                 <>
-                    <ImageGallery images={articles} />
+                    <ImageGallery images={articles} onOpenModal={handleModal}/>
                     {isLoading ? <Loader /> :
                         isNotLastPage &&
                         isLoadImages() &&
@@ -81,6 +91,14 @@ export default function App() {
                     }
                 </>
             }
+
+            <ImageModal
+                isOpen={modalIsOpen}
+                closeModal={() => setModalIsOpen(false)}
+                image={modalImage}
+                description={modalDescription}
+            />
+
         </>
     );
 }
