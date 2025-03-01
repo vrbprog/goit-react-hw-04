@@ -25,7 +25,7 @@ export default function ImageModal({isOpen, closeModal, image, description}) {
             shouldCloseOnOverlayClick={true}
             style={customStyles}
           >
-            <img className={css.imageModal} src={image} alt={description} />
+            <img className={css.imageModal} src={image} alt="modal" />
             <p className={css.description}>{description}</p>
         </Modal>
     );

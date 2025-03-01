@@ -39,6 +39,7 @@ export default function App() {
 
             if (total_pages === 0) {
                 toast.error('No results were found for your query!');
+                setArticles([]);
             }
             else {
                 if (page === 1) {
