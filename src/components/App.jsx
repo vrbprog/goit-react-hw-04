@@ -81,12 +81,12 @@ export default function App() {
     return (
         <>
             <SearchBar request={request} />
+
             {isError ? <ErrorMessage /> :
                 <>
                     <ImageGallery images={articles} onOpenModal={handleModal}/>
                     {isLoading ? <Loader /> :
-                        isNotLastPage &&
-                        isLoadImages() &&
+                        isNotLastPage && isLoadImages() &&
                         <LoadMoreBtn onLoadMore={handleLoadMore} />
                     }
                 </>
@@ -98,7 +98,6 @@ export default function App() {
                 image={modalImage}
                 description={modalDescription}
             />
-
         </>
     );
 }
